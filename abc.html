@@ -5,18 +5,55 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
+    <script>
+        function fetchData(){
+            console.log(emp)
+            fetch("http://localhost:2000/emps")
+            .then((response)=>{
+                response.json()
+            })
+            .then(data=>{
+                data.forEach(element => {
+                    console.log(element.id)
+                    console.log(element.name)
+                });
+            })
+        }
 
+        function addData(){
+            const emp = {
+                "_id":document.getElementById("empid").value,
+                "name":document.getElementById("empname").value
+            }
+            console.log(emp)
+            fetch("http://localhost:2000/addemp",{
+            method:"POST",
+            headers:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+            },
+            body :JSON.stringify(emp)}
+            )
+            .then((response)=>{
+                response.json()
+            })
+            .then(data=>{
+                data.forEach(element => {
+                    console.log(element.id)
+                    console.log(element.name)
+                });
+            })
+        }
+
+       
+    </script>
+</head>
 <body>
-    <form action="http//localhost:300000" method="post">
-        <label for="ids">id:</label>
-        <input type="text" id="ids" name="ids"><br><br>
-        <label for="firstname">First name:</label>
-        <input type="text" id="firstname" name="firstname"><br><br>
-        <label for="name">name:</label>
-        <input type="text" id="name" name="name"><br><br>
-        <input type="submit" value="Submit">
-      </form>
-    
+
+    ID<input type="text" id="empid">
+    Name<input type="text" id="empname">
+    <button onclick="fetchData()">Fetch</button>
+    <button onclick="addData()">Add</button>
+
 </body>
-</html>
+</html
